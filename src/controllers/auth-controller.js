@@ -35,8 +35,13 @@ router.get('/me', async (req, res, next) => {
   }
 });
 
-router.post('/signin', (req, res, next) => {
-  res.json('signin');
+router.post('/signin', async (req, res, next) => {
+  const { email, password } = req.body;
+  console.log(email, password);
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.status(404).send('The email is not registered');
+  }
 });
 
 module.exports = router;

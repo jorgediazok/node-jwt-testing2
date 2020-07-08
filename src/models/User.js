@@ -12,4 +12,9 @@ userSchema.methods.encryptPassword = async (password) => {
   return bcrypt.hash(password, salt);
 };
 
+userSchema.methods.validatePassword = function (password) {
+  //No uso funcion flecha porque voy a usar this
+  return bcrypt.compare(password, this.password);
+};
+
 module.exports = model('User', userSchema);
